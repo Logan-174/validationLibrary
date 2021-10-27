@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 1.py
+zip.zip
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

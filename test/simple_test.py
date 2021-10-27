@@ -5,7 +5,7 @@ import zipfile
 import pytest
 import sys
 
-def check_exitensen(target_file_name):
+def existence_check(target_file_name):
 
 	cur_dir = os.getcwd()
 	tar_dir = os.path.dirname(os.path.join(cur_dir, 'samples/'))
@@ -23,12 +23,20 @@ def check_exitensen(target_file_name):
 		elif os.path.splitext(target_file_name)[1] == '.gz':
 			return 'gzfile'
 	else:
-		return False
+		print("There is no file or directory called %s" % target_file_name)
+		print("The file existence check - FAIL")
+		sys.exit()
 
 	
+def file_size_check(target_file_name):
 
-
-
+	file_size = os.path.getsize(target_file_name)
+	if file_size == 0:
+		print("The file size is 0 byte.")
+		print("The file size check - FAIL")
+		sys.exit()
+	else: 
+		return True
 
 
 
@@ -36,15 +44,15 @@ def main():
 
 	# file_set = [f for f in os.listdir(parent_dir)]
 	target_file_name = sys.argv[1]
-	check_result = check_exitensen(target_file_name)
+	check_result = existence_check(target_file_name)
 	
-	if check_result == False:
-		print("There is no file or directory called %s" % target_file_name)
-		print("The file existence check - FAIL")
-		sys.exit()
-	else:
+	if check_result != False:
 		print("The file existence check - PASS")
 		print("The %s" %check_result, target_file_name + " exists")
+
+	if file_size_check(target_file_name) == True:
+		print("The file size check - PASS")
+
 
 	
 		
